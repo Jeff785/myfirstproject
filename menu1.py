@@ -10,23 +10,23 @@ import time
 #GPIO.input(pin#, True)
 #GPIO.output(pin#, False)
 
-selection = input("What do you want to do?"\n)
+selection = input("What do you want to do?")
 t = "Create New = C", "Modify Existing = M", "Open Existing = O"
 print(" Please input selection: \n", t)
 
 class Module :
 	if selection == "C" :
 		print("You selected Create New Module")
-		def Module_create :
+		def Module_create() :
 	elif selection == "M" :
 		print("You selected Modify Existing")
-		def Module_modify :
+		def Module_modify() :
 	elif selection == "O" :
 		print("You selected Open Existing")
-		def Module_open :
-	else selection == "X" :
+		def Module_open() :
+	else: selection == "X" :
 		print("Exiting program")
-		def Module_End :
+		def Module_End() :
 
 	def Module_create() :
 		print("You selected Create New Module")
@@ -40,4 +40,3 @@ class Module :
 	def Module_End() :
 		print("Exiting program")
 		break
-
