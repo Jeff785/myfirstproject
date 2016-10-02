@@ -2,7 +2,7 @@
 import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt  # plotting routine for python3
 from time import sleep, strftime, time # this sets up delay, obtain current date and time for the information to CSV file
-from subprocess inport check_output
+from subprocess import check_output
 from re import findall # obtains the float value using regular expressions
 
 
@@ -27,8 +27,8 @@ graphing the temperature results against time of readings
 """
 
 def get_temp():
-    temp = check_output([vcgencmd", "measure_temp"]).decode("UTF-8")
-    temp = float("\d+.\d+", temp[0])
+    temp = check_output(["vcgencmd", "measure_temp"]).decode("UTF-8")
+    temp = float(findall("\d+.\d+", temp)[0])
     return(temp)
 
 """
@@ -37,11 +37,11 @@ def get_temp():
  in the described format with the second piece of informationn writted as a string
  last is the delay between capturing readings with sleep method
  """
- def write_temp(temp):
+def write_temp(temp):
     with open("cpu_temp.csv", "a") as log:
-        log.write("(0),(1)\n".format(strftime("%m-%d-%Y %H:%M:%S"), str(temp)))
-        
- def graph(temp):
+        log.write("{0},{1}\n".format(strftime("%Y-%m-%d %H:%M:%S"), str(temp)))
+       
+def graph(temp):
     y.append(temp) # Y-axis is the temperature reading
     x.append(time()) # X-axis is the time of temperature reading
     plt.clf() # clears the plot area
@@ -53,6 +53,6 @@ while True:
     temp = get_temp()
     write_temp(temp)
     graph(temp)
-    sleep(1)
+    sleep(10)
 
         
