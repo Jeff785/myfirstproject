@@ -2,12 +2,12 @@
 import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt  # plotting routine for python3
 from time import sleep, strftime, time # this sets up delay, obtain current date and time for the information to CSV file
-from subprocess inport check-output
+from subprocess inport check_output
 from re import findall # obtains the float value using regular expressions
 
 
 # check temperature of Raspberry Pi
-temp = check-output(["vcgencmd", "measure_temp"])
+temp = check_output(["vcgencmd", "measure_temp"])
 temp = temp.decode("UTF-8") # type of format to keyboard  .\d+ is one significant digit
 temp = findall("\d+.\d+", temp) # searches for the number \d and by adding + puts the numbers together and . decimal equivalent
 temp = temp[0]  # obtain the oth element in this list which means the first number in the list
@@ -27,7 +27,7 @@ graphing the temperature results against time of readings
 """
 
 def get_temp():
-    temp = check.output([vcgencmd", "measure_temp"]).decode("UTF-8")
+    temp = check_output([vcgencmd", "measure_temp"]).decode("UTF-8")
     temp = float("\d+.\d+", temp[0])
     return(temp)
 
@@ -50,7 +50,7 @@ def get_temp():
     plt.draw() # actually draws the graph
         
 while True:
-    temp = get.temp()
+    temp = get_temp()
     write_temp(temp)
     graph(temp)
     sleep(1)
