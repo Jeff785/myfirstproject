@@ -5,8 +5,9 @@ import sys
 import pigpio
 import DHT22
 import csv
+import datetime
 from time import sleep, time, strftime
-from datetime import datetime
+#from datetime import datetime
 
 #initiate GPIO
 pi = pigpio.pi()
@@ -32,13 +33,12 @@ def write_data_reads(t1):
                 out_file.close()
         return
 
-def write_data_log(t):
+def write_data_log(t1):
         # evaluates expression With, calls the Method Open, assigns to the variable given by AS
         with open("gpiodata.csv", 'a') as out_file:
                 sep = '\n'
-                localtime = str(datetime.now())
-                t = localtime, temperature, humidity
-                t = str(t)  # change to string format to allow for updates to list
+                t1 = localtime, temperature, humidity
+                t = str(t1)  # change to string format to allow for updates to list
                 out_file.write(t + sep)
                 out_file.close()
         return
@@ -46,11 +46,11 @@ def write_data_log(t):
 
 while True :
         humidity, temperature = readDHT22()
-        localtime = str(datetime.now())
-        t = temperature, humidity
+        now = datetime.datetime.now() # create an instance and provide a method
+        localtime = now.strftime("%m-%d-%Y %H:%M") # string style format-appearance
         t1 = localtime, temperature, humidity
         write_data_reads(t1)
-        write_data_log(t)
+        write_data_log(t1)
         print("humidity is: " + humidity + "%")
         print("Temperature is: " + temperature + "C")
         print("Local date and time is: ", localtime)
